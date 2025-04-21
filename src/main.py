@@ -3,9 +3,20 @@ from htmlnode import *
 
 
 def main():
-  node = TextNode("`code block` word this is `code a`", TextType.TEXT)
-  new_nodes = split_nodes_delimiter([node], "`", TextType.CODE)
-  print(new_nodes)
+
+  md = """
+This is **bolded** paragraph
+
+This is another paragraph with _italic_ text and `code` here
+This is the same paragraph on a new line
+
+- This is a list
+- with items
+"""
+  markdown = "``` This is\n code```"
+  print(block_to_block_type(markdown))
+
+  
 
 if __name__ == "__main__":
   main()
