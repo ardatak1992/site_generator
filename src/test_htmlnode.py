@@ -1,7 +1,6 @@
 import unittest
-
-from htmlnode import HTMLNode, LeafNode, ParentNode
-
+from htmlnode import *
+from inline_markdown import *
 
 
 class TestHTMLNode(unittest.TestCase):
@@ -35,6 +34,27 @@ class TestHTMLNode(unittest.TestCase):
         parent_node.to_html(),
         "<div><span><b>grandchild</b></span></div>",
       )
+
+    def test_markdown_to_blocks(self):
+        md = """
+This is **bolded** paragraph
+
+This is another paragraph with _italic_ text and `code` here
+This is the same paragraph on a new line
+
+- This is a list
+- with items
+"""
+        blocks = markdown_to_blocks(md)
+        self.assertEqual(
+            blocks,
+            [
+            "This is **bolded** paragraph",
+            "This is another paragraph with _italic_ text and `code` here\nThis is the same paragraph on a new line",
+            "- This is a list\n- with items",
+            ],
+    )
+        
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,22 +1,18 @@
 from textnode import *
 from htmlnode import *
-
+from markdown_blocks import *
 
 def main():
 
   md = """
-This is **bolded** paragraph
-
-This is another paragraph with _italic_ text and `code` here
-This is the same paragraph on a new line
-
-- This is a list
-- with items
+```
+This is text that _should_ remain the **same** even with inline stuff
+```
 """
-  markdown = "``` This is\n code```"
-  print(block_to_block_type(markdown))
 
+  node = markdown_to_html_node(md)
+  html = node.to_html()
+  print(html)
   
-
 if __name__ == "__main__":
   main()
