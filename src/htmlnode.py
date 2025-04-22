@@ -9,7 +9,10 @@ class HTMLNode:
     raise NotImplementedError()
 
   def props_to_html(self):
-    return ' '.join(f'{k}="{v}"' for k, v in self.props.items())
+    if self.props != None:
+      return " " + ' '.join(f'{k}="{v}"' for k, v in self.props.items())
+    else:
+      return ""
 
   def __repr__(self):
     return f"HTMLNode(tag={self.tag}, value={self.value}, children={self.children}, props={self.props})"
@@ -23,8 +26,12 @@ class LeafNode(HTMLNode):
       raise ValueError("Leaft node should have a value")
     if self.tag == None:
       return self.value
+    if self.tag == "img":
+      print(self)
+      return f'<img {self.props_to_html()}/>'
     
-    return f"<{self.tag}>{self.value}</{self.tag}>"
+    
+    return f"<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>"
 
 
 class ParentNode(HTMLNode):
